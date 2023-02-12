@@ -1,40 +1,70 @@
-# todos-express-starter
+# todos-express-mailchain
 
-This is a starter kit for building a todo app with sign in functionality using
-[Express](https://expressjs.com/), [Passport](https://www.passportjs.org/) and
-[SQLite](https://www.sqlite.org/).
+This app illustrates how to use [Passport](https://www.passportjs.org/) with
+[Express](https://expressjs.com/) to sign users in with [Mailchain](https://mailchain.com).
+Use this example as a starting point for your own web applications.
 
-The following is a list of complete, working example apps that have been built
-using this kit as a starting point.
+## Quick Start
 
-* [todos-express-password](https://github.com/passport/todos-express-password)
+To run this app, clone the repository and install dependencies:
 
-  Illustrates how to sign in with a username and password.
+```bash
+$ git clone https://github.com/tboeckmann/todos-express-mailchain.git
+$ cd todos-express-email
+$ npm install
+```
 
-* [todos-express-password-flash](https://github.com/passport/todos-express-password-flash)
+This app must be configured with a Mailchain Secret Recovery Phrase.
 
-  Illustrates how to sign in with a username and password and use the flash for
-  informative messages.
+Once credentials have been obtained, create a `.env` file and add the following
+environment variables:
 
-* [todos-express-google](https://github.com/passport/todos-express-google)
+```sh
+FROM_ADDRESS=user@mailchain.com
+SECRET_RECOVERY_PHRASE=__INSERT_SECRET_RECOVERY_PHRASE__
+```
 
-  Illustrates how to sign in with Google via OpenID Connect.
+Start the server.
 
-* [todos-express-google-oauth2](https://github.com/passport/todos-express-google-oauth2)
+```bash
+$ npm start
+```
 
-  Illustrates how to sign in with Google via OAuth 2.0.
+Navigate to [`http://localhost:3000`](http://localhost:3000).
 
-* [todos-express-email](https://github.com/passport/todos-express-email)
+## Tutorial
 
-  Illustrates how to sign in with email via magic link.
+Follow along with the step-by-step [Mailchain Magic Link Tutorial](https://github.com/tboeckmann/www.passportjs.org/tree/mailchain-tutorial/books/tutorials/mailchain)
+to learn how this app was built.
 
-* [todos-express-auth0](https://github.com/passport/todos-express-auth0)
+## Overview
 
-  Illustrates how to implement sign in by integrating with Auth0 via OpenID Connect.
+This app illustrates how to build a todo app with sign in functionality using
+Express, Passport, and the [`passport-magic-link`](https://www.passportjs.org/packages/passport-magic-link/)
+strategy.
 
-* [todos-express-openidconnect](https://github.com/passport/todos-express-openidconnect)
+This app is a traditional web application, in which application logic and data
+persistence resides on the server.  HTML pages and forms are rendered by the
+server and client-side JavaScript is not utilized (or kept to a minimum).
 
-  Illustrates how to implement sign in by integrating with an identity provider (IdP) via OpenID Connect.
+This app is built using the Express web framework.  Data is persisted to a
+[SQLite](https://www.sqlite.org/) database.  HTML pages are rendered using [EJS](https://ejs.co/)
+templates, and are styled using vanilla CSS.
+
+When a user first arrives at this app, they are prompted to sign in.  To sign
+in, the user clicks a magic link that is sent to their Mailchain address via
+[Mailchain](https://mailchain.com/)'s API.  Once authenticated, a login session is
+established and maintained between the server and the user's browser with a
+cookie.
+
+After signing in, the user can view, create, and edit todo items.  Interaction
+occurs by clicking links and submitting forms, which trigger HTTP requests.
+The browser automatically includes the cookie set during login with each of
+these requests.
+
+When the server receives a request, it authenticates the cookie and restores the
+login session, thus authenticating the user.  It then accesses or stores records
+in the database associated with the authenticated user.
 
 ## License
 
@@ -43,3 +73,4 @@ using this kit as a starting point.
 ## Credit
 
 Created by [Jared Hanson](https://www.jaredhanson.me/)
+Adapted for Mailchain by [Tim Boeckmann](https://github.com/tboeckmann/)
