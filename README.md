@@ -73,4 +73,5 @@ in the database associated with the authenticated user.
 ## Credit
 
 Created by [Jared Hanson](https://www.jaredhanson.me/)
+
 Adapted for Mailchain by [Tim Boeckmann](https://github.com/tboeckmann/)
